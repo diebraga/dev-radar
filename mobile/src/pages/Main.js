@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from "expo-location";
 import { MaterialIcons }  from '@expo/vector-icons';
@@ -65,14 +65,13 @@ function Main({ navigation }) {
               <MaterialIcons name='my-location' size={20} color='#fff'/>
           </TouchableOpacity>
           </View>
-
           </>
   );
 }
 
 const styles = StyleSheet.create({
   map: {
-    flex: 1
+    flex: 1,
   },
 
   avatar: {
@@ -102,8 +101,9 @@ const styles = StyleSheet.create({
   },
 
   searchForm: {
+    flex: 1,
     position: 'absolute',
-    bottom: 20,
+    top: 20,
     left: 20,
     right: 20,
     zIndex: 5,
