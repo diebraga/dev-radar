@@ -4,7 +4,10 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from "expo-location";
 import { MaterialIcons }  from '@expo/vector-icons';
 
+import api from '../services/api';
+
 function Main({ navigation }) {
+  const [devs, setDevs] = useState([]);
   const [currentRegion, setCurrentRegion] = useState(null);
 
   useEffect(() => {
@@ -31,14 +34,39 @@ function Main({ navigation }) {
     loadInitialPosition();
   }, []);
 
+  async function loadDevs() {
+    const { latitude, longitude } = currentRegion;
+
+    const res = await api.get('/search', {
+      params: {
+        latitude,
+        longitude,
+        techs: 'Node.Js'
+      }
+    });
+
+    detDevs(res.data)
+  }
+
+  function handleRegionChanged(region) {
+    console.log(region);
+    setCurrentRegion(region);
+  }
+
   if (!currentRegion) {
     return null;
   }
 
   return (
     <>
-          <MapView initialRegion={currentRegion} style={styles.map}>
-            <Marker coordinate={{ latitude: 52.6571699, longitude: -8.6216564 }}>
+          <MapView 
+          onRegionChangeComplete={handleRegionChanged} 
+          initialRegion={currentRegion} 
+          style={styles.map}>
+            <Marker 
+            coordinate={{ 
+              latitude: 52.6571699, 
+              longitude: -8.6216564 }}>
               <Image style={styles.avatar} source={{ uri: 'https://avatars0.githubusercontent.com/u/52054459?s=460&v=4' }} />
               <Callout onPress={() => {
                 navigation.navigate('Profile', { github_username: 'diebraga' });
