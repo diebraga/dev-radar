@@ -21,4 +21,4 @@
 #### The app will find developers around based on the techs typed on the mobile app limit 10km.
 #### The web app is capable to register new users only.
 
-![](assets/img.jpeg)  ![](assets/img2.jpeg)
+<img src="assets/img.jpeg" width="200" height="350"/> <img src="assets/img2.jpeg" width="200" height="350"/>
